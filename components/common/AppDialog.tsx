@@ -13,8 +13,12 @@ import {
 import { Button } from "@/components/ui/button";
 
 interface AppDialogProps {
-  /** 다이얼로그를 여는 트리거 요소 */
-  trigger: React.ReactNode;
+  /** controlled open (선택) */
+  open?: boolean;
+  /** controlled open change (선택) */
+  onOpenChange?: (open: boolean) => void;
+  /** 다이얼로그를 여는 트리거 요소 (선택) */
+  trigger?: React.ReactNode;
   /** 제목 */
   title: string;
   /** 부제목 (선택) */
@@ -28,6 +32,8 @@ interface AppDialogProps {
 }
 
 const AppDialog = ({
+  open,
+  onOpenChange,
   trigger,
   title,
   description,
@@ -36,8 +42,8 @@ const AppDialog = ({
   onAction,
 }: AppDialogProps) => {
   return (
-    <Dialog>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent showCloseButton={false} className="px-0 pb-0 gap-0">
         {/* 우측 상단 X 버튼 */}
         <DialogClose className="absolute top-4 right-4">
